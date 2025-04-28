@@ -18,7 +18,7 @@ namespace iw
 
 		void addNode(Node* node);
 
-		void addOutputNodes(Node* node);
+		void addOutputNode(Node* node);
 
 		void exec();
 

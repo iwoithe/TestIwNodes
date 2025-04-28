@@ -15,7 +15,7 @@ void NodeTree::addNode(Node* node)
 	m_nodes.push_back(node);
 }
 
-void NodeTree::addOutputNodes(Node* node)
+void NodeTree::addOutputNode(Node* node)
 {
 	m_outputNodes.push_back(node);
 }
