@@ -51,4 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Test.iwn">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
