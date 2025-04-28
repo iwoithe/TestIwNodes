@@ -22,59 +22,59 @@ void NodeTree::addOutputNode(Node* node)
 
 void NodeTree::exec()
 {
-	// Step 1: Get all input nodes
-	std::queue<Node*> inputNodes;
+    // Step 1: Get all input nodes
+    std::queue<Node*> inputNodes;
 
-	for (Node* outputNode : m_outputNodes) {
-		findInputNode(outputNode, inputNodes);
-	}
+    for (Node* outputNode : m_outputNodes) {
+        findInputNode(outputNode, inputNodes);
+    }
 
-	// Step 2: Perform a topological sort based on Kahn's algorithm
-	std::queue<Node*> nodeExecOrder;
+    // Step 2: Perform a topological sort based on Kahn's algorithm
+    std::queue<Node*> nodeExecOrder;
 
-	while (!inputNodes.empty())
-	{
-		Node* node = inputNodes.front();
+    while (!inputNodes.empty())
+    {
+        Node* node = inputNodes.front();
 
-		if (node->beenVisited()) {
-			inputNodes.pop();
-			continue;
-		}
+        if (node->beenVisited()) {
+            inputNodes.pop();
+            continue;
+        }
 
-		node->setBeenVisited(true);
+        node->setBeenVisited(true);
 
-		nodeExecOrder.push(node);
-		inputNodes.pop();
+        nodeExecOrder.push(node);
+        inputNodes.pop();
 
-		for (Port* outputPort : node->outputPorts()) {
-			for (Port* linkedPort : outputPort->linkedInputPorts()) {
-				Node* linkedPortNode = linkedPort->node();
-				linkedPortNode->setIndegree(linkedPortNode->indegree() - 1);
-				if (linkedPortNode->indegree() <= 0) {
-					inputNodes.push(linkedPortNode);
-				}
-			}
-		}
+        for (Port* outputPort : node->outputPorts()) {
+            for (Port* linkedPort : outputPort->linkedInputPorts()) {
+                Node* linkedPortNode = linkedPort->node();
+                linkedPortNode->setIndegree(linkedPortNode->indegree() - 1);
+                if (linkedPortNode->indegree() <= 0) {
+                    inputNodes.push(linkedPortNode);
+                }
+            }
+        }
+    }
 
-		// Step 3: Run each node's execution method in correct order
-		while (!nodeExecOrder.empty())
-		{
-			Node* node = nodeExecOrder.front();
+    // Step 3: Run each node's execution method in correct order
+    while (!nodeExecOrder.empty())
+    {
+        Node* node = nodeExecOrder.front();
 
-			node->updateInputPortData();
-			node->exec();
+        node->updateInputPortData();
+        node->exec();
 
-			// Step 4: Reset (avoids having to loop through nodes again later)
-			node->setBeenVisited(false);
-			node->resetIndegree();
+        // Step 4: Reset (avoids having to loop through nodes again later)
+        node->setBeenVisited(false);
+        node->resetIndegree();
 
-			for (Port* port : node->ports()) {
-				port->setIsDirty(false);
-			}
+        for (Port* port : node->ports()) {
+            port->setIsDirty(false);
+        }
 
-			nodeExecOrder.pop();
-		}
-	}
+        nodeExecOrder.pop();
+    }
 }
 
 std::vector<Node*> NodeTree::nodes()
