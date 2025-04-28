@@ -3,8 +3,6 @@
 #include "Node.h"
 #include "Port.h"
 
-#define EMPTY_QUEUE(queue) while (!(queue).empty()) { (queue).pop(); }
-
 using namespace iw;
 
 NodeTree::~NodeTree()
