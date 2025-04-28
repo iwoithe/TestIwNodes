@@ -50,6 +50,9 @@
     <ClInclude Include="iwdelete.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="iwdeltatime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Test.iwn">

@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "iwdeltatime.h"
+
 #include "Node.h"
 #include "NodeTree.h"
 #include "Port.h"
@@ -9,9 +11,11 @@ using namespace iw;
 class UpdateInputNode : public Node
 {
 public:
-    UpdateInputNode()
+    UpdateInputNode() : UpdateInputNode(nullptr) {}
+    UpdateInputNode(DeltaTime* deltaTime)
     {
         m_name = "UpdateInput";
+        m_deltaTime = deltaTime;
 
         Port* execOutPort = new Port("execOut", Any(0), PortType::OUTPUT_PORT);
         m_deltaTimePort = new Port("deltaTime", Any(0), PortType::OUTPUT_PORT);
@@ -21,12 +25,12 @@ public:
 
     void exec() override
     {
-        // Set delta time
-        m_deltaTimePort->setData(Any(0.1f));
+        m_deltaTimePort->setData(Any(m_deltaTime->getUnlimited()));
     }
 
 protected:
     Port* m_deltaTimePort;
+    DeltaTime* m_deltaTime;
 };
 
 class UpdateOutputNode : public Node
@@ -60,7 +64,7 @@ public:
 
     void exec() override
     {
-        std::cout << "[DEBUG] " << m_valuePort->get<float>() << std::endl;
+        std::cout << "[DEBUG] " << m_valuePort->get<double>() << std::endl;
     }
 
 protected:
@@ -70,9 +74,11 @@ protected:
 
 int main()
 {
-    NodeTree* nodeTree = new NodeTree();
+    DeltaTime* deltaTime = new DeltaTime();
 
-    UpdateInputNode* updateInput = new UpdateInputNode();
+    NodeTree* updateNodeTree = new NodeTree();
+
+    UpdateInputNode* updateInput = new UpdateInputNode(deltaTime);
     PrintNode* print = new PrintNode();
     UpdateOutputNode* updateOutput = new UpdateOutputNode();
 
@@ -81,10 +87,30 @@ int main()
 
     updateInput->port("deltaTime")->linkPort(print->port("value"));
 
-    nodeTree->addOutputNode(updateOutput);
-    nodeTree->exec();
+    updateNodeTree->addOutputNode(updateOutput);
 
-    delete nodeTree;
+    bool isRunning = true;
+    double totalFrameTime = 0.0;
+    bool limitFps = false;
+    if (limitFps)
+        deltaTime->setFps(30);
+
+    while (isRunning)
+    {
+        deltaTime->tick();
+        if (limitFps)
+        {
+            totalFrameTime += deltaTime->getUnlimited();
+            if (totalFrameTime < 1 / deltaTime->fps()) continue;
+            totalFrameTime = 0;
+        }
+        
+        updateNodeTree->exec();
+    }
+
+
+    delete updateNodeTree;
+    delete deltaTime;
 
     return 0;
 }

@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="iwany.h" />
     <ClInclude Include="iwdelete.h" />
+    <ClInclude Include="iwdeltatime.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeTree.h" />
     <ClInclude Include="Port.h" />
