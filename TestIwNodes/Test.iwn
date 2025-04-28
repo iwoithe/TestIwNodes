@@ -1,0 +1,43 @@
+# .iwn specification
+# ================== 
+# An open file format for storing node data
+# ------------------
+# Node: ``[[NODE_NAME]]``
+#
+# Node properties: ``- PROP_ID: PROP_VALUE``
+#
+# Node link direction doesn't matter, IwNodes automatically figures it out
+# Port link: ``= NODE_ID:PORT_1 <> NODE_ID:PORT_2``
+
+# Example
+
+[Nodes]
+[[AddNode]]
+- id: add1
+- num1: 1
+- num2: 1
+
+[[IntNode]]
+- id: int1
+- output: 3
+
+[[AddNode]]
+- id: add2
+
+[[OutputNode]]
+- id: output1
+
+[[IntNode]]
+- id: int2
+- output: 4
+
+[[OutputNode]]
+- id: output2
+
+[Links]
+# Node tree 1
+= add1:output <> add2:num1
+= int1:output <> add2:num2
+= add2:output <> output1:input
+# Node tree 2
+= int2:output <> output2:input

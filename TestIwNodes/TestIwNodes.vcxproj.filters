@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\iwnodes">
+      <UniqueIdentifier>{c4be6ece-29ea-4eee-971a-811e456d28f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\iwnodes">
+      <UniqueIdentifier>{407afb9b-20b6-4003-9b28-63513fea1174}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TestIwNodes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Port.cpp">
+      <Filter>Source Files\iwnodes</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTree.cpp">
+      <Filter>Source Files\iwnodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files\iwnodes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files\iwnodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Port.h">
+      <Filter>Header Files\iwnodes</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeTree.h">
+      <Filter>Header Files\iwnodes</Filter>
+    </ClInclude>
+    <ClInclude Include="iwany.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iwdelete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
