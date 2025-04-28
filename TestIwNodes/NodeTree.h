@@ -20,6 +20,8 @@ namespace iw
 
 		void addOutputNode(Node* node);
 
+		void compile();
+
 		void exec();
 
 		std::vector<Node*> nodes();
@@ -31,5 +33,7 @@ namespace iw
 
 		std::vector<Node*> m_nodes;
 		std::vector<Node*> m_outputNodes;
+
+		std::vector<Node*> m_nodeExecOrder;
 	};
 }

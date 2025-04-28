@@ -88,6 +88,7 @@ int main()
     updateInput->port("deltaTime")->linkPort(print->port("value"));
 
     updateNodeTree->addOutputNode(updateOutput);
+    updateNodeTree->compile();
 
     bool isRunning = true;
     double totalFrameTime = 0.0;

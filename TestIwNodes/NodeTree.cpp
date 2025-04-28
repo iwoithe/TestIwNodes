@@ -3,6 +3,8 @@
 #include "Node.h"
 #include "Port.h"
 
+#define EMPTY_QUEUE(queue) while (!(queue).empty()) { (queue).pop(); }
+
 using namespace iw;
 
 NodeTree::~NodeTree()
@@ -20,18 +22,28 @@ void NodeTree::addOutputNode(Node* node)
 	m_outputNodes.push_back(node);
 }
 
-void NodeTree::exec()
+void NodeTree::compile()
 {
-    // Step 1: Get all input nodes
+    // Step 1: Clear the node execution order and reset the nodes
+    for (Node* node : m_nodes) {
+        node->setBeenVisited(false);
+        node->resetIndegree();
+
+        for (Port* port : node->ports()) {
+            port->setIsDirty(false);
+        }
+    }
+
+    m_nodeExecOrder.clear();
+
+    // Step 2: Get all input nodes
     std::queue<Node*> inputNodes;
 
     for (Node* outputNode : m_outputNodes) {
         findInputNode(outputNode, inputNodes);
     }
 
-    // Step 2: Perform a topological sort based on Kahn's algorithm
-    std::queue<Node*> nodeExecOrder;
-
+    // Step 3: Perform a topological sort based on Kahn's algorithm
     while (!inputNodes.empty())
     {
         Node* node = inputNodes.front();
@@ -43,7 +55,7 @@ void NodeTree::exec()
 
         node->setBeenVisited(true);
 
-        nodeExecOrder.push(node);
+        m_nodeExecOrder.push_back(node);
         inputNodes.pop();
 
         for (Port* outputPort : node->outputPorts()) {
@@ -56,24 +68,14 @@ void NodeTree::exec()
             }
         }
     }
+}
 
-    // Step 3: Run each node's execution method in correct order
-    while (!nodeExecOrder.empty())
+void NodeTree::exec()
+{
+    for (Node* node : m_nodeExecOrder)
     {
-        Node* node = nodeExecOrder.front();
-
         node->updateInputPortData();
         node->exec();
-
-        // Step 4: Reset (avoids having to loop through nodes again later)
-        node->setBeenVisited(false);
-        node->resetIndegree();
-
-        for (Port* port : node->ports()) {
-            port->setIsDirty(false);
-        }
-
-        nodeExecOrder.pop();
     }
 }
 
