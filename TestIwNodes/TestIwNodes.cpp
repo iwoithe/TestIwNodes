@@ -25,7 +25,7 @@ public:
 
     void exec() override
     {
-        m_deltaTimePort->setData(Any(m_deltaTime->getUnlimited()));
+        m_deltaTimePort->setData(Any(m_deltaTime->get()));
     }
 
 protected:
