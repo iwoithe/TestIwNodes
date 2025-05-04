@@ -38,7 +38,7 @@ void NodeTree::compile()
     std::queue<Node*> inputNodes;
 
     for (Node* outputNode : m_outputNodes) {
-        findInputNode(outputNode, inputNodes);
+        findInputNodes(outputNode, inputNodes);
     }
 
     // Step 3: Perform a topological sort based on Kahn's algorithm
@@ -87,7 +87,7 @@ std::vector<Node*> NodeTree::outputNodes()
 	return m_outputNodes;
 }
 
-void NodeTree::findInputNode(Node* node, std::queue<Node*>& inputNodes)
+void NodeTree::findInputNodes(Node* node, std::queue<Node*>& inputNodes)
 {
 	for (Port* port : node->ports()) {
 		if (port->type() == PortType::OUTPUT_PORT) continue;
@@ -104,7 +104,7 @@ void NodeTree::findInputNode(Node* node, std::queue<Node*>& inputNodes)
 				}
 
 				if (anyInputsLinked) {
-					findInputNode(n, inputNodes);
+					findInputNodes(n, inputNodes);
 				}
 				else
 					inputNodes.push(n);

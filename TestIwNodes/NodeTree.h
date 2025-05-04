@@ -29,7 +29,7 @@ namespace iw
 		std::vector<Node*> outputNodes();
 
 	protected:
-		void findInputNode(Node* node, std::queue<Node*>& inputNodes);
+		void findInputNodes(Node* node, std::queue<Node*>& inputNodes);
 
 		std::vector<Node*> m_nodes;
 		std::vector<Node*> m_outputNodes;
