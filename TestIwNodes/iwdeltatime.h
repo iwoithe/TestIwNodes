@@ -11,7 +11,7 @@ namespace iw
 		{
 			m_deltaTime = 0.0;
 			m_elapsedTime = 0.0;
-			m_fps = 30.0;
+			m_fps = 0.0;
 			m_curTime = std::chrono::steady_clock::now();
 			m_prevTime = std::chrono::steady_clock::now();
 		}
@@ -37,6 +37,15 @@ namespace iw
 		}
 
 		double get() const
+		{
+			if (m_fps > 0) {
+				return getLimited();
+			} else {
+				return getUnlimited();
+			}
+		}
+
+		double getLimited() const
 		{
 			return std::max(m_deltaTime, 1 / m_fps);
 		}

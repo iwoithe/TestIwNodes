@@ -98,14 +98,12 @@ int main()
 
     bool isRunning = true;
     double totalFrameTime = 0.0;
-    bool limitFps = false;
-    if (limitFps)
-        deltaTime->setFps(30);
+    // deltaTime->setFps(30);
 
     while (isRunning)
     {
         deltaTime->tick();
-        if (limitFps)
+        if (deltaTime->fps() > 0)
         {
             totalFrameTime += deltaTime->getUnlimited();
             if (totalFrameTime < 1 / deltaTime->fps()) continue;
