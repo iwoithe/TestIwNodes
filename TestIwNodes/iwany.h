@@ -15,6 +15,11 @@ public:
     {
         return std::any_cast<T>(m_data);
     }
+
+    std::any stdAny() const
+    {
+        return m_data;
+    }
 private:
     std::any m_data;
 };
