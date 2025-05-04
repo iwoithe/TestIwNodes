@@ -64,7 +64,13 @@ public:
 
     void exec() override
     {
-        std::cout << "[DEBUG] " << m_valuePort->get<double>() << std::endl;
+        if (m_valuePort->dataType() == typeid(double)) {
+            std::cout << "[DEBUG] " << m_valuePort->get<double>() << std::endl;
+        } else if (m_valuePort->dataType() == typeid(int)) {
+            std::cout << "[DEBUG] " << m_valuePort->get<int>() << std::endl;
+        } else if (m_valuePort->dataType() == typeid(std::string)) {
+            std::cout << "[DEBUG] " << m_valuePort->get<std::string>() << std::endl;
+        }
     }
 
 protected:

@@ -35,6 +35,8 @@ namespace iw
 
 		void setData(Any data);
 
+		const type_info& dataType();
+
 		Any defaultData() const;
 
 		void setDefaultData(Any data);

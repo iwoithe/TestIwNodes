@@ -33,6 +33,11 @@ void Port::setData(Any data)
 	m_isDirty = true;
 }
 
+const type_info& Port::dataType()
+{
+	return m_data.stdAny().type();
+}
+
 Any Port::defaultData() const
 {
 	return m_defaultData;
