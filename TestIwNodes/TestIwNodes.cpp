@@ -38,7 +38,7 @@ class UpdateOutputNode : public Node
 public:
     UpdateOutputNode()
     {
-        m_name = "Output";
+        m_name = "UpdateOutput";
 
         Port* execInPort = new Port("execIn", Any(0), PortType::INPUT_PORT);
         addPort(execInPort);
