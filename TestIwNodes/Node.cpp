@@ -138,7 +138,7 @@ void Node::updateInputPortData()
 		if (port->type() == PortType::INPUT_PORT)
 		{
 			std::vector<Port*> outputPorts = port->linkedOutputPorts();
-			if (outputPorts.size() > 0)
+			if (!outputPorts.empty())
 				port->setData(port->linkedOutputPorts()[0]->data());
 		}
 	}
