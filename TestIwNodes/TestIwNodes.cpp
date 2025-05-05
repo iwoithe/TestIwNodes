@@ -113,8 +113,9 @@ int main()
         updateNodeTree->exec();
     }
 
-
     delete updateNodeTree;
+    delete updateInput;
+    delete print;
     delete deltaTime;
 
     return 0;

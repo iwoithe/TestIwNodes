@@ -14,7 +14,7 @@ namespace iw
 	public:
 		Node();
 		
-		~Node();
+		virtual ~Node();
 
 		virtual void exec() {}
 
