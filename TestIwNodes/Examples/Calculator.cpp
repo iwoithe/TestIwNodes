@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "../Port.h"
 #include "../Node.h"
 #include "../NodeTree.h"
@@ -65,23 +66,21 @@ public:
 int main()
 {
     AddNode* add1Node = new AddNode();
-    add1Node->port("num1")->setData(Any(1));
-    add1Node->port("num2")->setData(Any(1));
-
     IntNode* int1Node = new IntNode();
-    int1Node->port("output")->setData(Any(3));
-
     AddNode* add2Node = new AddNode();
-    add1Node->port("output")->linkPort(add2Node->port("num1"));
-    int1Node->port("output")->linkPort(add2Node->port("num2"));
-    
     OutputNode* output1Node = new OutputNode();
-    add2Node->port("output")->linkPort(output1Node->port("output"));
     
     IntNode* int2Node = new IntNode();
+    OutputNode* output2Node = new OutputNode();
+
+    add1Node->port("num1")->setData(Any(1));
+    add1Node->port("num2")->setData(Any(1));
+    int1Node->port("output")->setData(Any(3));
     int2Node->port("output")->setData(Any(4));
 
-    OutputNode* output2Node = new OutputNode();
+    add1Node->port("output")->linkPort(add2Node->port("num1"));
+    int1Node->port("output")->linkPort(add2Node->port("num2"));
+    add2Node->port("output")->linkPort(output1Node->port("output"));
     int2Node->port("output")->linkPort(output2Node->port("output"));
 
     NodeTree* nodeTree = new NodeTree();
