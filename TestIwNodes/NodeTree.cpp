@@ -7,6 +7,7 @@ using namespace iw;
 
 NodeTree::~NodeTree()
 {
+	m_outputNodes.clear();
 	DEL_STD_VEC(m_nodes);
 }
 
