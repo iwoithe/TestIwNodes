@@ -82,11 +82,14 @@ int main()
 {
     DeltaTime* deltaTime = new DeltaTime();
 
-    NodeTree* updateNodeTree = new NodeTree();
-
     UpdateInputNode* updateInput = new UpdateInputNode(deltaTime);
     PrintNode* print = new PrintNode();
     UpdateOutputNode* updateOutput = new UpdateOutputNode();
+
+    NodeTree* updateNodeTree = new NodeTree();
+    updateNodeTree->addNode(updateInput);
+    updateNodeTree->addNode(print);
+    updateNodeTree->addNode(updateOutput);
 
     updateInput->port("execOut")->linkPort(print->port("execIn"));
     print->port("execOut")->linkPort(updateOutput->port("execIn"));
@@ -98,7 +101,6 @@ int main()
 
     bool isRunning = true;
     double totalFrameTime = 0.0;
-    // deltaTime->setFps(30);
 
     while (isRunning)
     {
@@ -112,10 +114,8 @@ int main()
         
         updateNodeTree->exec();
     }
-
+    
     delete updateNodeTree;
-    delete updateInput;
-    delete print;
     delete deltaTime;
 
     return 0;
