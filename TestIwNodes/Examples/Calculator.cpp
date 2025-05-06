@@ -63,7 +63,7 @@ public:
     }
 };
 
-int main()
+int calculatorExample()
 {
     AddNode* add1Node = new AddNode();
     IntNode* int1Node = new IntNode();
