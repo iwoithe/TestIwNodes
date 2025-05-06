@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Examples\Calculator.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeTree.cpp" />
     <ClCompile Include="Port.cpp" />
